@@ -1,0 +1,7 @@
+{
+  "name": "quiz-animal",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
