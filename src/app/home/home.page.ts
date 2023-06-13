@@ -73,6 +73,33 @@ export class HomePage {
     }
   ];
 
+  // L'index de l'animal dont on a entendu le cri
+  pickedAnimalIndex: number | null = null;
+
+  // l'instance chargée de jouer le son
+  media: HTMLAudioElement | null = null;
+
   constructor() { }
+
+  play() {
+    // choix aléatoire d'un animal
+    if (this.pickedAnimalIndex === null) {
+      this.pickedAnimalIndex = Math.floor(Math.random() * this.animals.length);
+    }
+    const animal = this.animals[this.pickedAnimalIndex];
+
+
+    if (this.media && this.media.currentTime > 0) {
+      this.media.pause();
+    }
+
+    // lecture du cri de l'animal
+    this.media = new Audio('/assets' + animal.file);
+    this.media.load();
+    this.media.play();
+
+
+
+  }
 
 }
