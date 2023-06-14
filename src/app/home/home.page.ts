@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -79,7 +80,7 @@ export class HomePage {
   // l'instance chargée de jouer le son
   media: HTMLAudioElement | null = null;
 
-  constructor() { }
+  constructor(private toastCtrl: ToastController) { }
 
   play() {
     // choix aléatoire d'un animal
@@ -97,9 +98,30 @@ export class HomePage {
     this.media = new Audio('/assets' + animal.file);
     this.media.load();
     this.media.play();
+  }
 
+  guess(animal: string) {
+    let message: string = "Mauvais choix";
 
+    if (this.pickedAnimalIndex === null) {
+      message = "Il faut cliquer sur \"jouer un son\" avant de choisir un animal";
+    } else if (animal === this.animals[this.pickedAnimalIndex].title) {
+      message = "Bravo c'est gagné";
+      this.pickedAnimalIndex = null;
+      this.media = null;
+    }
 
+    this.showMessage(message);
+  }
+
+  async showMessage(message: string) {
+    const toast = await this.toastCtrl.create({
+      message: message,
+      duration: 2000,
+      position: "middle"
+    });
+
+    toast.present();
   }
 
 }

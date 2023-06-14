@@ -8,7 +8,7 @@
 
 <ion-content [fullscreen]="true">
   <ion-list>
-    <ion-item *ngFor="let item of animals">
+    <ion-item *ngFor="let item of animals" (click)="guess(item.title)">
       <ion-label>
         <h3>{{ item.title }}</h3>
         <p>{{ item.desc }}</p>
@@ -22,9 +22,9 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-button expand="full" (click)="play()" [color]="pickedAnimalIndex?'danger':'success'">
+    <ion-button expand="full" (click)="play()" [color]="pickedAnimalIndex !== null ?'danger':'success'">
 
-      {{ pickedAnimalIndex ? 'cliquer sur un animal' : 'Jouer un son' }}
+      {{ pickedAnimalIndex !== null ? 'cliquer sur un animal' : 'Jouer un son' }}
     </ion-button>
   </ion-toolbar>
 </ion-footer>
