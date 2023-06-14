@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { ItemReorderEventDetail, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -82,6 +82,8 @@ export class HomePage {
 
   tries = 0;
 
+  isReorderDisabled = false;
+
   constructor(private toastCtrl: ToastController) { }
 
   play() {
@@ -147,6 +149,13 @@ export class HomePage {
       return 'cliquer sur un animal';
 
     return 'Jouer un son';
+  }
+
+  reorderAnimals(even: any) {
+    // application de déplacement sur la source de données
+    // this.animals = even.detail.complete(this.animals);
+
+    even.detail.complete();
   }
 
 }

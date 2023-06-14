@@ -1,7 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="end">
-
+      <ion-button (click)="isReorderDisabled = ! isReorderDisabled">
+        <ion-icon slot="icon-only" name="reorder-three" [color]="isReorderDisabled? 'success':'danger'"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-title>
       Quiz animal
@@ -10,16 +12,21 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
   <ion-list>
-    <ion-item *ngFor="let item of animals" (click)="guess(item.title)">
-      <ion-label>
-        <h3>{{ item.title }}</h3>
-        <p>{{ item.desc }}</p>
-      </ion-label>
-      <ion-avatar slot="start">
-        <ion-img src="/assets/{{ item.image }}"></ion-img>
-      </ion-avatar>
-    </ion-item>
+    <ion-reorder-group [disabled]="isReorderDisabled" (ionItemReorder)="reorderAnimals($event)">
+      <ion-item *ngFor="let item of animals" (click)="guess(item.title)">
+        <ion-label>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.desc }}</p>
+        </ion-label>
+        <ion-avatar slot="start">
+          <ion-img src="/assets/{{ item.image }}"></ion-img>
+        </ion-avatar>
+
+        <ion-reorder slot="end"></ion-reorder>
+      </ion-item>
+    </ion-reorder-group>
   </ion-list>
 </ion-content>
 
