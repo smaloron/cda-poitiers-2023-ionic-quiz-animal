@@ -85,6 +85,12 @@ export class HomePage {
   constructor(private toastCtrl: ToastController) { }
 
   play() {
+
+    if (this.animals.length === 0) {
+      window.location.href = window.location.href;
+      return;
+    }
+
     // choix aléatoire d'un animal
     if (this.pickedAnimalIndex === null) {
       this.pickedAnimalIndex = Math.floor(Math.random() * this.animals.length);
@@ -131,6 +137,16 @@ export class HomePage {
     });
 
     toast.present();
+  }
+
+  getPlayButtonLabel(): string {
+    if (this.animals.length === 0)
+      return 'Relancer le jeu';
+
+    if (this.pickedAnimalIndex !== null)
+      return 'cliquer sur un animal';
+
+    return 'Jouer un son';
   }
 
 }

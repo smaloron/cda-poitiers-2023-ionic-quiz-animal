@@ -1,9 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-button href="/home">
-        relancer le jeu
-      </ion-button>
+
     </ion-buttons>
     <ion-title>
       Quiz animal
@@ -27,10 +25,9 @@
 
 <ion-footer>
   <ion-toolbar>
-    <ion-button expand="full" (click)="play()" [color]="pickedAnimalIndex !== null ?'danger':'success'"
-      [disabled]="animals.length === 0">
+    <ion-button expand="full" (click)="play()" [color]="pickedAnimalIndex !== null ?'danger':'success'">
 
-      {{ pickedAnimalIndex !== null ? 'cliquer sur un animal' : 'Jouer un son' }}
+      {{ getPlayButtonLabel() }}
     </ion-button>
   </ion-toolbar>
 </ion-footer>
