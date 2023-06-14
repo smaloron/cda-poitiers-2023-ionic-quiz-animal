@@ -80,6 +80,8 @@ export class HomePage {
   // l'instance chargée de jouer le son
   media: HTMLAudioElement | null = null;
 
+  tries = 0;
+
   constructor(private toastCtrl: ToastController) { }
 
   play() {
@@ -103,12 +105,19 @@ export class HomePage {
   guess(animal: string) {
     let message: string = "Mauvais choix";
 
+    this.tries++;
+
     if (this.pickedAnimalIndex === null) {
       message = "Il faut cliquer sur \"jouer un son\" avant de choisir un animal";
     } else if (animal === this.animals[this.pickedAnimalIndex].title) {
-      message = "Bravo c'est gagné";
+      message = `Bravo c'est gagné en ${this.tries} tentative(s)`;
+
+      // Suppression de l'animal dont on vient de deviner le cri
+      this.animals.splice(this.pickedAnimalIndex, 1);
+
       this.pickedAnimalIndex = null;
       this.media = null;
+      this.tries = 0;
     }
 
     this.showMessage(message);
